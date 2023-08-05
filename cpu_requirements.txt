@@ -1,0 +1,6 @@
+huggingface
+sentence-transformers
+fastapi
+uvicorn
+transformers
+protobuf

@@ -1,0 +1,6 @@
+models/*.bin
+.venv
+.vscode
+.idea
+.env
+**/__pycache__
