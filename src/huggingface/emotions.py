@@ -1,13 +1,15 @@
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import torch
+from transformers import AutoTokenizer, RobertaForSequenceClassification
 def get_emotion(text):
-    tokenizer = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-emotion")
-    model = AutoModelForSeq2SeqLM.from_pretrained("mrm8488/t5-base-finetuned-emotion")
+    tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-emotion")
+    model = RobertaForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-emotion")
 
-    input_ids = tokenizer.encode(text + '</s>', return_tensors='pt')
+    inputs = tokenizer("I... just...", return_tensors="pt")
 
-    output = model.generate(input_ids=input_ids,
-        max_length=2)
+    with torch.no_grad():
+        logits = model(**inputs).logits
 
-    dec = [tokenizer.decode(ids) for ids in output]
-    label = dec[0]
-    return label
+    predicted_class_id = logits.argmax().item()
+    model.config.id2label[predicted_class_id]
+
+    return model.config.id2label[predicted_class_id]

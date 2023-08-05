@@ -53,11 +53,16 @@ async def encode(input: BasicReq):
 
 
 @app.post("/emotion")
-async def emotiongen(input: LlamaReq):
+async def emotiongen(input: BasicReq):
     print(secret)
     if (secret is not None and input.key != secret):
         raise HTTPException(status_code=401, detail="Invalid Key")
     return {"emotion": emotion.get_emotion(input.message)}
+
+@app.get("/test-emotion")
+async def test_emotion_gen():
+    return {"emotion": emotion.get_emotion("Hi!!!")}
+
 
 
 @app.post("/completion")
