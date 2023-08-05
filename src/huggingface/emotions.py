@@ -4,7 +4,7 @@ def get_emotion(text):
     tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-emotion")
     model = RobertaForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-emotion")
 
-    inputs = tokenizer("I... just...", return_tensors="pt")
+    inputs = tokenizer(text, return_tensors="pt")
 
     with torch.no_grad():
         logits = model(**inputs).logits
