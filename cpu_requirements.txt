@@ -4,3 +4,4 @@ fastapi
 uvicorn
 transformers
 protobuf
+python-dotenv
