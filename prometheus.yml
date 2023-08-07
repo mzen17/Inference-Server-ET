@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'hf-inference1'
+    static_configs:
+      - targets: ['10.42.0.138:8001']
