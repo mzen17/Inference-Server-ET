@@ -82,8 +82,9 @@ async def encode(input: BasicReq):
         invalid.inc()
         raise HTTPException(status_code=401, detail="Invalid Key")
     embed.inc()
+    embeddings = encoder.getEmbeddings(input.message)
     embed_response_time.set(time.time() - start)
-    return {"embedding":encoder.getEmbeddings(input.message)}
+    return {"embedding":embeddings}
 
 
 @app.post("/emotion")
@@ -93,8 +94,9 @@ async def emotiongen(input: BasicReq):
         invalid.inc()
         raise HTTPException(status_code=401, detail="Invalid Key")
     emot.inc()
+    emotions = emotion.get_emotion(input.message)
     emotions_response_time.set(time.time() - start)
-    return {"emotion": emotion.get_emotion(input.message)}
+    return {"emotion": emotions}
 
 
 @app.post("/completion")
@@ -103,6 +105,7 @@ async def llamaRequest(input: LlamaReq):
     if (secret is not None and input.key != secret):
         invalid.inc()
         raise HTTPException(status_code=401, detail="Invalid Key")
+    response = llama.sendReq(input.message, input.max, input.temp)
     llama_response_time.set(time.time() - start)
-    return {"response":llama.sendReq(input.message, input.max, input.temp)}
+    return {"response":response}
 
