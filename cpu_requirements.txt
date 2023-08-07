@@ -6,3 +6,4 @@ transformers
 protobuf
 gunicorn
 python-dotenv
+prometheus_client
