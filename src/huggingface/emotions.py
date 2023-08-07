@@ -1,8 +1,8 @@
 import torch
 from transformers import AutoTokenizer, RobertaForSequenceClassification
 def get_emotion(text):
-    tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-emotion")
-    model = RobertaForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-emotion")
+    tokenizer = AutoTokenizer.from_pretrained("SamLowe/roberta-base-go_emotions")
+    model = RobertaForSequenceClassification.from_pretrained("SamLowe/roberta-base-go_emotions")
 
     inputs = tokenizer(text, return_tensors="pt")
 
