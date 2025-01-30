@@ -7,4 +7,4 @@ This repository does not function, and is largely outdated. However, it is curre
 ## Why bundle everything in one? 
 For fast multi-cluster deployments.
 ## License
-GPLv3
+MIT
